@@ -1,0 +1,50 @@
+---
+title: "up02-jade-wang"
+output:
+  github_document:
+    html_preview: false
+---
+
+
+```{r}
+load("~/nba2017-salary-points.RData")
+#Quantative Analysis
+##brief summary
+summary('position')
+summary('salary')
+summary('points')
+summary('team')
+summary('player')
+
+##check if objects are vector
+is.vector('player')
+is.vector('points')
+is.vector('position')
+is.vector('team')
+is.vector('salary')
+
+#plots
+##points
+hist(points, col = "yellow") #It's generally a decreasing right-tailed graph.
+boxplot(points, col = "yellow")
+
+##salary
+hist(height='salary', col = "blue") #It's generally a decreasing right-tailed graph.
+boxplot(height='salary', col = "blue")
+
+#Qualitative Analysis (of position)
+factor('position')
+position.freq = table('position')
+table('position') #frequency table 
+position.prop = prop.table(table('position'))
+prop.table(table('position')) #proportion
+
+#plots
+colors = c("red", "yellow", "green", "violet", "blue")
+##relative frequencies (propoetion)
+barplot(height=position.prop, xlab = "position", ylab = "Proportion", col = colors)
+##frequencies
+barplot(height=position.freq, xlab = "position", ylab = "Frequency", col = colors)
+
+## The bar graphs of frequencies and proportion are in the same shape. There is no big difference between the proportion of each position.
+
