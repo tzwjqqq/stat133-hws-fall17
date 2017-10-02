@@ -1,6 +1,6 @@
-* Data Dictionary for 2017 NBA players
+* __Data Dictionary for 2017 NBA players__
            
- * Description
+* Description
     + Player: first and last names of players
     + Team: 3-letter team abbreviation
     + Position: player's position
@@ -11,7 +11,7 @@
     + GP: games played during regular season
     + GS: game started
     + MIN: minutes played during regular season
-    + FGM: Field Goals Made 
+    + FGM: Field Goals Made
     + FGA: Field Goal Attempts
     + Points3: 3-point field goals
     + Points3_atts: 3-point field goal attempts
@@ -26,5 +26,5 @@
     + BLK: blocks
     + TO: turnovers
          
- >[Main  Source](www.basketball-reference.com)
- >[A sample link of GS Warriors](www.basketball-reference.com/teams/GSW/2017.html)
+>[Main  Source] (www.basketball-reference.com)
+>[A sample link of GS Warriors] (www.basketball-reference.com/teams/GSW/2017.html)
