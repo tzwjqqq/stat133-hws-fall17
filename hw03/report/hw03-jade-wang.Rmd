@@ -1,0 +1,132 @@
+---
+title: "hw03-jade-wang"
+output: github_document
+---
+
+```{r setup}
+library(dplyr)
+library(readr)
+library(ggplot2)
+
+dat <- read.csv('/Users/Jade/stat133-hws-fall17/hw03/data/nba2017-teams.csv')
+```
+
+```{r}
+# basic ranking by salary in decreasing order
+
+dat_by_salary <- dat %>%
+  select(team, salary) %>%
+  arrange(desc(salary)) 
+  
+
+ggplot(data = dat_by_salary,
+       aes(x = reorder(team, salary, sum), y = salary)) +
+  labs(title = 'NBA Teams ranked by Total Salary',
+         x = 'Team', y = 'Salary (in millions)') +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_hline(aes(yintercept = mean(salary)), col = 'red')
+
+
+
+# ranking by total points
+dat_by_TP <- dat %>%
+  select(team, points) %>%
+  arrange(desc(points)) 
+  
+
+ggplot(data = dat_by_TP, 
+       aes(x = reorder(team, points, sum), y = points)) +
+  labs(title = 'NBA Teams ranked by Total Points',
+         x = 'Team', y = 'Total Points') +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_hline(aes(yintercept = mean(points), col = 'red'))
+
+
+
+# ranking by efficiency
+dat_by_EFF <- dat %>%
+  select(team, efficiency) %>%
+  arrange(desc(efficiency)) 
+  
+
+ggplot(data = dat_by_EFF, 
+       aes(x = reorder(team, efficiency, sum), y = efficiency)) +
+  labs(title = 'NBA Teams ranked by Efficiency',
+         x = 'Team', y = 'Efficiency') +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_hline(aes(yintercept = mean(dat$efficiency), col = 'red'))
+```
+### From the above three different ranking methods, I find that the top 2 teams in any ranking system would be within three teams: CLE, GSW and LAL. However, the other teams have quite different ranks in each system. Therefore, I think that the strongest teams uauslly remain as the top ones regardless of which ranking system used.
+
+```{R}
+# Principal Components Analysis (PCA)
+
+dat <- read.csv('/Users/Jade/stat133-hws-fall17/hw03/data/nba2017-teams.csv')
+
+list1 <- dat %>% select(
+  points3_made,
+  points2_made,
+  points1_made,
+  off_rebounds,
+  def_rebounds,
+  assists,
+  steals,
+  blocks,
+  turnovers,
+  fouls)
+
+pca <- prcomp(list1, scale. = TRUE)
+
+#eigenvalues
+eigs <- data.frame(
+  eigenvalue = pca$sdev^2,
+  prop = round(pca$sdev^2/sum(pca$sdev^2) , 4),
+  cumprop = round(cumsum(pca$sdev^2/sum(pca$sdev^2)), 4)
+)
+
+eigs
+
+df1 <- data.frame(
+  pc1 = pca$x[ ,1],
+  pc2 = pca$x[ ,2]
+)
+
+ggplot(df1, aes(x = pc1, y = pc2)) +
+  geom_text(aes(label = dat$team)) +
+  geom_hline( yintercept = 0) +
+  geom_vline( xintercept = 0)
+
+# Index based on PC1
+library(scales)
+
+pc1 <- pca$x[,1]
+
+z1 <- rescale(pc1, to = c(0,100))
+
+s1 <- 100 * (z1 - min(z1))/(max(z1) - min(z1))
+
+df2 <- data.frame(dat$team , s1)
+
+ggplot(data = df2, 
+       aes(x = reorder(dat$team, s1, sum), y = s1)) +
+  labs(title = 'NBA Teams ranked by scaled PC1',
+         x = 'Team', y = 'First PC (scaled from 0 to 100)') +
+  geom_bar(stat = 'identity') +
+  coord_flip()
+
+```
+
+# Comments and Reflections
+    +   I find dealing with different types of data is difficult for me. 
+    I have to pay attention to the type of data I'm processing with, or I would not get the results I want.
+    +   I find, as long as I collect the correct data frame, 
+    plotting becomes much more easier than I first used rmd.
+    +   I spent around 6 + hours on this homework,
+    but most of the time I was stuck rather than writing codes.
+    +   The most time consuming part is re-organizing data base 
+    and creating new data frames. Plotting was pretty interesting though.
+  
+
