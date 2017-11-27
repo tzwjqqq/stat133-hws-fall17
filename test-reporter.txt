@@ -1,0 +1,35 @@
+testing if the missing values are removed: ..12
+testing to get the minimum value: ...3
+testing to get the maximum value: ....
+testing the data range: ....
+testing to get the median: ....
+testing to get the average value: ....
+Testing the standard deviation: ....
+Failed -------------------------------------------------------------------------
+1. Failure: removing the missing values (@tests.R#18) --------------------------
+remove_missing(a) not equal to c(1, 4, 7, 10).
+3/4 mismatches (average diff: 4)
+[2] 2 -  4 == -2
+[3] 3 -  7 == -4
+[4] 4 - 10 == -6
+
+
+2. Failure: removing the missing values (@tests.R#19) --------------------------
+remove_missing(a) not equal to c(2, 5, 7, 11).
+4/4 mismatches (average diff: 3.75)
+[1] 1 -  2 == -1
+[2] 2 -  5 == -3
+[3] 3 -  7 == -4
+[4] 4 - 11 == -7
+
+
+3. Failure: returning the minimum (@tests.R#30) --------------------------------
+get_minmum(a) not equal to 2.
+1/1 mismatches
+[1] 1 - 2 == -1
+
+
+DONE ===========================================================================
+function (length = 0L)  
+function (length = 0L)  
+[1] "data.frame"
